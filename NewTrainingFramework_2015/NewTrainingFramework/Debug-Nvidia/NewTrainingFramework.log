@@ -1,0 +1,5 @@
+﻿  NewTrainingFramework.cpp
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\utilities\math.h(5): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\globals.h(8): warning C4305: 'initializing': truncation from 'double' to 'float'
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\newtrainingframework\globals.h(10): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  NewTrainingFramework.vcxproj -> E:\Workshop Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\NewTrainingFramework.exe

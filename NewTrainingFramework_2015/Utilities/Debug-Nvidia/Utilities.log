@@ -1,0 +1,6 @@
+﻿  Math.cpp
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\utilities\math.h(5): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(10): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(111): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+e:\workshop gameloft\proiect_2015\newtrainingframework_2015\utilities\math.cpp(215): warning C4244: 'return': conversion from 'double' to 'GLfloat', possible loss of data
+  Utilities.vcxproj -> E:\Workshop Gameloft\proiect_2015\NewTrainingFramework_2015\\BIN-Nvidia\Utilities.lib
