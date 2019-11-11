@@ -163,6 +163,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Model_parser.cpp" />
     <ClCompile Include="NewTrainingFramework.cpp" />
     <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -175,6 +177,8 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Model_parser.h" />
     <ClInclude Include="Shaders.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -183,6 +187,8 @@
   <ItemGroup>
     <None Include="..\Resources\Shaders\LineShaderFS.fs" />
     <None Include="..\Resources\Shaders\LineShaderVS.vs" />
+    <None Include="..\Resources\Shaders\ModelShaderFS.fs" />
+    <None Include="..\Resources\Shaders\ModelShaderVS.vs" />
     <None Include="..\Resources\Shaders\TriangleShaderFS.fs" />
     <None Include="..\Resources\Shaders\TriangleShaderVS.vs" />
     <None Include="..\..\Readme.doc" />

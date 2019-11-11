@@ -93,13 +93,13 @@ Camera::Camera()
 	position = Vector3(0, 0, -5);
 	target = Vector3(0, 0, 0);
 	up = Vector3(0, 1, 0);
-	moveSpeed = 0.7;
+	moveSpeed = 100.0f;
 	rotateSpeed = 0.7;
 	worldMatrix = Matrix().SetIdentity();
 	viewMatrix = Matrix().SetIdentity();
 	fov = PI / 4.0f;
 	m_near = 0.2f;
-	m_far = 100.0f;
+	m_far = 10000.0f;
 	GLfloat aspect = (GLfloat)Globals::screenWidth / (GLfloat)Globals::screenHeight;
 	perspectiveMatrix.SetPerspective(fov, aspect, m_near, m_far);
 	//perspectiveMatrix.SetIdentity();

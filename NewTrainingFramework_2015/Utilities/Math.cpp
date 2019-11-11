@@ -82,6 +82,14 @@ Vector2 & Vector2::operator = (Vector2 & vector)
 	return *this;
 }
 
+Vector2 & Vector2::operator = (const Vector2 & vector)
+{
+	x = vector.x;
+	y = vector.y;
+
+	return *this;
+}
+
 GLfloat Vector2::operator [] (unsigned int idx)
 {
 	return (&x)[idx];
@@ -185,6 +193,15 @@ Vector3 & Vector3::operator = (Vector3 & vector)
 	y = vector.y;
 	z = vector.z;
 	
+	return *this;
+}
+
+Vector3 & Vector3::operator = (const Vector3 & vector)
+{
+	x = vector.x;
+	y = vector.y;
+	z = vector.z;
+
 	return *this;
 }
 

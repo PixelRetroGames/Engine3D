@@ -8,15 +8,18 @@
 #include <conio.h>
 #include "Globals.h"
 #include "Camera.h"
+#include "Model.h"
 
 
 
 GLuint vboId, buffer2;
 Shaders myShaders, lineShaders;
+Model model;
 Camera camera;
 
 int Init ( ESContext *esContext )
 {
+	//glEnable(GL_DEPTH_TEST);
 	glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
 
 	//triangle data (heap)
@@ -58,16 +61,36 @@ int Init ( ESContext *esContext )
 	//creation of shaders and program 
 	int rtn = myShaders.Init("../Resources/Shaders/TriangleShaderVS.vs", "../Resources/Shaders/TriangleShaderFS.fs");
 	rtn = rtn || lineShaders.Init("../Resources/Shaders/LineShaderVS.vs", "../Resources/Shaders/LineShaderFS.fs");
+	
+	//MODEL
+	model.Parse("../Resources/Models/Bila.nfg");
+
+	glGenBuffers(1, &model.vertex_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, model.vertex_buffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(model.v[0]) * model.v.size(), &model.v[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &model.pos_buffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.pos_buffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(model.pos[0]) * model.pos.size(), &model.pos[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+	rtn = rtn || model.shaders.Init("../Resources/Shaders/ModelShaderVS.vs", "../Resources/Shaders/ModelShaderFS.fs");
+
 	return rtn;
 }
 
 void Draw ( ESContext *esContext )
 {
+	int err = glGetError();
+	fprintf(stderr, "%d\n", err);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(myShaders.program);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vboId);
+	err = glGetError();
 
 	
 	if(myShaders.positionAttribute != -1)
@@ -75,36 +98,73 @@ void Draw ( ESContext *esContext )
 		glEnableVertexAttribArray(myShaders.positionAttribute);
 		glVertexAttribPointer(myShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
+	err = glGetError();
 
 	if (myShaders.colorAttribute != -1)
 	{
 		glEnableVertexAttribArray(myShaders.colorAttribute);
 		glVertexAttribPointer(myShaders.colorAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),(void*)sizeof(Vector3));
 	}
+	err = glGetError();
 
 	if (myShaders.transformUniform != -1)
 	{
 		glUniformMatrix4fv(myShaders.transformUniform, 1, GL_FALSE, (GLfloat*)Globals::M.m);
 	}
+	err = glGetError();
 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+	err = glGetError();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
+
 	// LINE
 	glUseProgram(lineShaders.program);
+	err = glGetError();
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer2);
+	err = glGetError();
 
 	if (lineShaders.positionAttribute != -1)
 	{
 		glEnableVertexAttribArray(lineShaders.positionAttribute);
 		glVertexAttribPointer(lineShaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	}
+	err = glGetError();
 
 	glDrawArrays(GL_LINES, 0, 2);
+	err = glGetError();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	// MODEL
+	glUseProgram(model.shaders.program);
+	err = glGetError();
+
+	glBindBuffer(GL_ARRAY_BUFFER, model.vertex_buffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.pos_buffer);
+	err = glGetError();
+
+	if (model.shaders.positionAttribute != -1)
+	{
+		glEnableVertexAttribArray(model.shaders.positionAttribute);
+		glVertexAttribPointer(model.shaders.positionAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+	}
+	err = glGetError();
+
+	if (model.shaders.transformUniform != -1)
+	{
+		glUniformMatrix4fv(model.shaders.transformUniform, 1, GL_FALSE, (GLfloat*)Globals::M.m);
+	}
+	err = glGetError();
+
+	//glDrawArrays(GL_LINES, 0, model.v.size());
+	glDrawElements(GL_TRIANGLES, model.pos.size(), GL_UNSIGNED_SHORT, NULL);
+	err = glGetError();
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	err = glGetError();
 
 	eglSwapBuffers ( esContext->eglDisplay, esContext->eglSurface );
 }

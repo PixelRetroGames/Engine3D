@@ -28,6 +28,7 @@ public:
 	Vector2 operator / (GLfloat k);
 	Vector2 & operator /= (GLfloat k);
 	Vector2 & operator = (Vector2 & vector);
+	Vector2 & operator = (const Vector2 & vector);
 	Vector2 Modulate(Vector2 & vector);
 	GLfloat Dot(Vector2 & vector);
 
@@ -66,6 +67,7 @@ public:
 	Vector3 operator / (GLfloat k);
 	Vector3 & operator /= (GLfloat k);
 	Vector3 & operator = (Vector3 & vector);
+	Vector3 & operator = (const Vector3 & vector);
 	Vector3 Modulate(Vector3 & vector);
 	GLfloat Dot(Vector3 & vector);
 	Vector3 Cross(Vector3 & vector);
